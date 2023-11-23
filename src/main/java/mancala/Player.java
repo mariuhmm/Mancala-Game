@@ -22,7 +22,7 @@ public class Player implements Serializable {
     }
 
     public String getName(){
-        return userProfile.getPlayerName();
+        return playerName;
     }
 
     private void setName(String name){
@@ -34,7 +34,7 @@ public class Player implements Serializable {
     }
 
     public int getStoreCount(){
-        return playerStore.getTotalStones();
+        return playerStore.getStoneCount();
     }
 
     public void setStore(Store store){

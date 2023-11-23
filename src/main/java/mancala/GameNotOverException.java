@@ -2,6 +2,6 @@ package mancala;
 
 public class GameNotOverException extends Exception{
     public GameNotOverException(){
-        super("Error ");
+        super("Error: Game is not over yet.");
     }    
 }

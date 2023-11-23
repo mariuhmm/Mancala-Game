@@ -18,11 +18,16 @@ public class Store implements Countable {
     }
 
     @Override
+    public void addStone(){
+        stoneCount++;
+    }
+
+    @Override
     public void addStones(int amount){
         stoneCount += amount;
     }
 
-    public int getTotalStones(){
+    public int getStoneCount(){
         return stoneCount;
     }
 
@@ -35,6 +40,6 @@ public class Store implements Countable {
 
     @Override
     public String toString(){
-        return "Number of Stones" + getTotalStones();
+        return "["+getStoneCount()+"]";
     }
 }

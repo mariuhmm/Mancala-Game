@@ -4,27 +4,19 @@ import java.util.ArrayList;
 import java.io.Serializable;
 
 public class MancalaGame implements Serializable {
-    private static final long serialVersionUID = 1L;
-    private Board board;
-    final private Player playerOne;
-    final private Player playerTwo;
+    private GameRules board;
+    private final Player playerOne;
+    private final Player playerTwo;
     private int currentPlayerPos;
-    final private ArrayList<Player> playerList;
+    private final ArrayList<Player> playerList;
 
-    public MancalaGame() {
-        // initialize players and board
-        final Board gameBoard = new Board();
-        gameBoard.setUpPits();
-        gameBoard.setUpStores();
-        gameBoard.initializeBoard();
-        setBoard(gameBoard);
-
-        playerList = new ArrayList<>(); 
-
+    public MancalaGame(GameRules board) {
+        playerList = new ArrayList<>();
         playerOne = new Player("Player One");
         playerTwo = new Player("Player Two");
+        this.board = board;
+        setBoard(board);
         setPlayers(playerOne, playerTwo);
-
         startNewGame();
     }
 
@@ -48,11 +40,11 @@ public class MancalaGame implements Serializable {
         currentPlayerPos = playerList.indexOf(player);
     }
 
-    public Board getBoard() {
+    public GameRules getBoard() {
         return board;
     }
 
-    private void setBoard(Board theBoard) {
+    private void setBoard(GameRules theBoard) {
         board = theBoard;
     }
 
@@ -76,7 +68,7 @@ public class MancalaGame implements Serializable {
         }
         int totalStonesPits = 0;
         try {
-            board.moveStones(startPit, currentPlayer);
+            board.moveStones(startPit, playerList.indexOf(currentPlayer)+1);
 
             if (currentPlayer == playerOne) {
                 for (int i = 1; i <= 6; i++) {
@@ -88,16 +80,15 @@ public class MancalaGame implements Serializable {
                 }
             }
         } catch (InvalidMoveException e) {
-            System.out.println("Invalid move. Please try again.");
+            System.out.println(e.getMessage());
             setCurrentPlayer(currentPlayer);
             
         }catch (PitNotFoundException e) {
-            System.out.println("Pit not found!");
+            System.out.println(e.getMessage());
         }
         return totalStonesPits;
     }
 
-    
     public int getStoreCount(Player player) throws NoSuchPlayerException{
         if (playerList.contains(player)) {
             return player.getStoreCount();
@@ -124,18 +115,14 @@ public class MancalaGame implements Serializable {
                 winningPlayer = playerList.get(1);
             } 
         } catch (NoSuchPlayerException e) {
-            System.out.println("Player does not exist");
+            System.out.println(e.getMessage());
         }
         return winningPlayer;
     }
 
     
     public boolean isGameOver() {
-        try{
-            return board.isSideEmpty(1) || board.isSideEmpty(7);
-        }catch (PitNotFoundException e) {
-                return false;
-        }
+        return board.isSideEmpty(1) || board.isSideEmpty(7);
     }
 
     private void startNewGame() {

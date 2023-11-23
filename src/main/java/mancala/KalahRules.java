@@ -3,14 +3,10 @@ package mancala;
 import java.util.ArrayList;
 
 public class KalahRules extends GameRules {
-    private ArrayList<Pit> pitList;
-    private ArrayList<Store> storeList;
-    private Player playerOne;
-    private Player playerTwo;
     private boolean turn;
 
     // helper methods for extra turns
-    private void setExtraTurn(boolean turnStatus){
+    public void setExtraTurn(boolean turnStatus){
         turn = turnStatus;
     }
 
@@ -19,13 +15,9 @@ public class KalahRules extends GameRules {
     }
 
     @Override
-    public int distributeStones(int startingPoint) throws PitNotFoundException {
-        if (startingPoint < 1 || startingPoint > 12) {
-            throw new PitNotFoundException();
-        }
-        Pit startingPit = pitList.get(startingPoint - 1);
-        int numStones = startingPit.getStoneCount();
-        int numMoves = startingPit.removeStones();
+    public int distributeStones(int startingPoint){
+        int numStones = getDataStructure().getNumStones(startingPoint);
+        int numMoves = getDataStructure().removeStones(startingPoint);
         int currentPit = startingPoint;
         int capturedStones = 0;
         int lastPit = startingPoint + numMoves;
@@ -36,29 +28,29 @@ public class KalahRules extends GameRules {
                     setExtraTurn(true);
                     numMoves--;
                 }
-                storeList.get(0).addStones(1);
+                getDataStructure().addToStore(1,1);
                 numMoves--;
             } else if (currentPit == 13 && startingPoint >= 7 && startingPoint <= 12) {
                 if(lastPit==13){
                     setExtraTurn(true);
                     numMoves--;
                 }
-                storeList.get(1).addStones(1);
+                getDataStructure().addToStore(2,1);
                 numMoves--;
                 currentPit = 1;
             }
             if(numMoves!=-1){
-                pitList.get(currentPit - 1).addStone();
+                getDataStructure().addStones(currentPit,1);
             }
             numMoves--;
-            if(numMoves==0&&pitList.get(currentPit-1).getStoneCount()==1){
+            if(numMoves==0&&getDataStructure().getNumStones(currentPit)==1){
                 capturedStones = captureStones(currentPit);
                 if(startingPoint >= 1 && startingPoint <= 6&&capturedStones!=0){
-                    storeList.get(0).addStones(capturedStones);
+                    getDataStructure().addToStore(1,capturedStones);
                     setExtraTurn(true);
                 }
                 if(startingPoint>6 &&capturedStones!=0){
-                    storeList.get(1).addStones(capturedStones);
+                    getDataStructure().addToStore(2,capturedStones);
                     setExtraTurn(true);
                 }
             }
@@ -69,37 +61,25 @@ public class KalahRules extends GameRules {
     }
 
     @Override
-    public int captureStones(int stoppingPoint) throws PitNotFoundException {
-            if (stoppingPoint < 1 || stoppingPoint > 12) {
-                throw new PitNotFoundException();
-            }
-            int oppositePitIndex = 13 - stoppingPoint; // calculate the index of the opposite pit
-
-            Pit oppositePit = pitList.get(oppositePitIndex-1);
-
-            int stonesCaptured = oppositePit.removeStones();
+    public int captureStones(int stoppingPoint){
+        int oppositePitIndex = 13 - stoppingPoint; // calculate the index of the opposite pit
+        int stonesCaptured = getDataStructure().removeStones(oppositePitIndex);
 
         return stonesCaptured;
     }
 
     @Override
-    public int moveStones(int startPit, Player player) throws InvalidMoveException {
-    if (startPit < 1 || startPit > 12) {
-        throw new InvalidMoveException();
-    }
-
-    int totalStonesAdded = 0;  // initialize totalStonesAdded
-
-    try {
-        if (player == playerOne && startPit <= 6 || player == playerTwo && startPit > 6) {
-            totalStonesAdded = distributeStones(startPit);
-        } else {
+    public int moveStones(int startPit, int playerNum) throws InvalidMoveException {
+        if (startPit < 1 || startPit > 12) {
             throw new InvalidMoveException();
         }
-    } catch (PitNotFoundException e) {
-        System.out.println("Pit not found!");
+        int totalStonesAdded = 0;
+            if(playerNum == 1 && startPit <= 6 || playerNum == 2 && startPit > 6){
+                totalStonesAdded = distributeStones(startPit);
+            } else {
+                throw new InvalidMoveException();
+            }
+        return getDataStructure().getStoreCount(playerNum);
     }
-
-    return player.getStoreCount();
-    }
+    
 }

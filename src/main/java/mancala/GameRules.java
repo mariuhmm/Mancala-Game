@@ -42,12 +42,9 @@ public abstract class GameRules {
      */
     boolean isSideEmpty(int pitNum) {
         // This method can be implemented in the abstract class.
-        if (pitNum < 1 || pitNum > 12) {
-                throw new PitNotFoundException();
-        }
         if (pitNum >= 1 && pitNum <= 6) {
             for (int i = 0; i <= 5; i++) {
-                if (pitList.get(i).getStoneCount() > 0) {
+                if (gameBoard.getNumStones(i+1) > 0) {
                     return false;
                 }
             }
@@ -55,7 +52,7 @@ public abstract class GameRules {
         }
         if (pitNum >= 7) {
             for (int i = 6; i <= 11; i++) {
-                if (pitList.get(i).getStoneCount() > 0) {
+                if (gameBoard.getNumStones(i+1) > 0) {
                     return false;
                 }
             }
@@ -112,8 +109,8 @@ public abstract class GameRules {
         /* make a new store in this method, set the owner
          then use the setStore(store,playerNum) method of the data structure*/
 
-        setStore(storeOne, one);
-        setStore(storeTwo, two);
+        gameBoard.setStore(storeOne, 1);
+        gameBoard.setStore(storeTwo, 2);
     }
 
     /**
@@ -130,13 +127,13 @@ public abstract class GameRules {
         StringBuilder boardString = new StringBuilder();
         boardString.append("\t");
         for (int i = 12; i >= 7; i--) {
-            boardString.append(pitList.get(i - 1).getStoneCount()).append("\t");
+            boardString.append(gameBoard.getNumStones(i)).append("\t");
         }
-        boardString.append("\n" + storeList.get(1).getTotalStones()).append("\t\t\t\t\t\t\t");
-        boardString.append(storeList.get(0).getTotalStones()).append("\n\t");
+        boardString.append("\n" + gameBoard.getStoreCount(2)).append("\t\t\t\t\t\t\t");
+        boardString.append(gameBoard.getStoreCount(1)).append("\n\t");
         
         for (int i = 1; i <= 6; i++) {
-            boardString.append(pitList.get(i - 1).getStoneCount()).append("\t");
+            boardString.append(gameBoard.getNumStones(i)).append("\t");
         }
         return boardString.toString();
     }

@@ -2,6 +2,6 @@ package mancala;
 
 public class InvalidMoveException extends Exception{
     public InvalidMoveException(){
-        super("Error ");
+        super("Error: Invalid move.");
     }
 }
