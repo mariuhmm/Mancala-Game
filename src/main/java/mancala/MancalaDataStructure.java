@@ -35,6 +35,8 @@ public class MancalaDataStructure {
             data.add(new Pit());
         }
         data.add(new Store());
+        //setUpPits();
+        //emptyStores();
     }
 
 
