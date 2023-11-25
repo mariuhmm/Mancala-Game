@@ -21,7 +21,7 @@ public class AyoRulesTest {
         player2 = new Player();
         rules.registerPlayers(player1, player2); 
         data = rules.getDataStructure();
-        data.setUpPits();
+       //data.setUpPits();
     }
 
 

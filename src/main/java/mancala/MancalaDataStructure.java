@@ -35,7 +35,7 @@ public class MancalaDataStructure {
             data.add(new Pit());
         }
         data.add(new Store());
-        //setUpPits();
+        setUpPits();
         //emptyStores();
     }
 
@@ -148,6 +148,11 @@ public class MancalaDataStructure {
      * @param startingStonesNum The number of starting stones for each pit.
      */
     public void setUpPits() {
+        // make sure pits are empty before setup
+        for(int i = 0;i<PLAYER_TWO; i++){
+            data.get(i).removeStones();
+        }
+        
         for (int i = 0; i < PLAYER_ONE; i++) {
             data.get(i).addStones(START_STONES);
         }

@@ -23,7 +23,7 @@ public class KalahRulesTest {
         because I need players to test */
         rules.registerPlayers(player1, player2); 
         data = rules.getDataStructure();
-        data.setUpPits();
+      //  data.setUpPits();
     }
 
 

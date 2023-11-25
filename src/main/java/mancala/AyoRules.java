@@ -23,18 +23,16 @@ public class AyoRules extends GameRules {
             currentPit++;
             nextElement = getDataStructure().next();
             nextElement.addStone();
-            System.err.println("Initial num:"+numMoves);
-
             if(currentPit==13){
                 currentPit=1;
             }
-
-            if(i==numMoves-1 && getDataStructure().getNumStones(currentPit)!=0){
-                numMoves = getDataStructure().removeStones(currentPit-1);
-                getDataStructure().addStones(currentPit-1,1); // smthn is wrong here, im adding the 1 bc it needs to add 1 stone to the pit it removes
-                i = 1;
+            if(i==numMoves-1 && nextElement.getStoneCount()!=1){
+                numMoves = nextElement.removeStones()+1;
+                i = 0;
+                
+            }if(i==numMoves-1 && nextElement.getStoneCount()==0){
+                captureStones(currentPit-1);
             }
-        
         }
         return numStones + capturedStones;
     }

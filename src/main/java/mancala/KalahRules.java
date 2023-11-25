@@ -49,7 +49,7 @@ public class KalahRules extends GameRules {
             if(currentPit==13){
                 currentPit=1;
             }
-            if(i==numMoves-1 && getDataStructure().getNumStones(currentPit-1)==1){
+            if(i==numMoves-1 && nextElement.getStoneCount()==1){
                 capturedStones = captureStones(currentPit-1);
                 getDataStructure().addToStore(playerNum, capturedStones);
                 setExtraTurn(true);
