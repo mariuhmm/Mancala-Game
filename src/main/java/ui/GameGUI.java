@@ -1,3 +1,4 @@
+package ui;
 import mancala.*;
 
 import javax.swing.*;
@@ -70,14 +71,6 @@ public class GameGUI extends JFrame {
         ((JLabel) ((JPanel) getContentPane().getComponent(1)).getComponent(1)).setText("Player 2 Store: " + mancalaGame.getPlayers().get(1).getStoreCount());
     }
 
-    public static void main(String[] args) {
-        GameRules chosenRules = chooseGameType();
-
-        MancalaGame mancalaGame = new MancalaGame(chosenRules);
-
-        GameGUI mancalaGUI = new GameGUI(mancalaGame);
-    }
-
     private static GameRules chooseGameType() {
         int choice = JOptionPane.showOptionDialog(null,
                 "Choose the game type:",
@@ -94,4 +87,14 @@ public class GameGUI extends JFrame {
             return new KalahRules();
         }
     }
+
+    public static void main(String[] args) {
+        GameRules chosenRules = chooseGameType();
+
+        MancalaGame mancalaGame = new MancalaGame(chosenRules);
+
+        GameGUI mancalaGUI = new GameGUI(mancalaGame);
+    }
+
+    
 }
