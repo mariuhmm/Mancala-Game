@@ -1,10 +1,11 @@
 package mancala;
+import java.io.Serializable;
 
 /**
  * Abstract class representing the rules of a Mancala game.
  * KalahRules and AyoRules will subclass this class.
  */
-public abstract class GameRules {
+public abstract class GameRules implements Serializable {
     private MancalaDataStructure gameBoard;
     private int currentPlayer = 1; // Player number (1 or 2)
 
@@ -24,6 +25,15 @@ public abstract class GameRules {
     public int getNumStones(int pitNum) {
         return gameBoard.getNumStones(pitNum);
     }
+    /**
+     * Get the number of stones in a store.
+     *
+     * @param storeNum The number of the store.
+     * @return The number of stones in the store.
+     */
+    public int getStoreCount(int storeNum){
+        return gameBoard.getStoreCount(storeNum);
+    }
 
     /**
      * Get the game data structure.
@@ -40,27 +50,28 @@ public abstract class GameRules {
      * @param pitNum The number of a pit in the side.
      * @return True if the side is empty, false otherwise.
      */
-    boolean isSideEmpty(int pitNum) {
-        // This method can be implemented in the abstract class.
+    public boolean isSideEmpty(int pitNum) {
         if (pitNum >= 1 && pitNum <= 6) {
-            for (int i = 0; i <= 5; i++) {
-                if (gameBoard.getNumStones(i+1) > 0) {
+            for (int i = 1; i <= 6; i++) {
+                if (getNumStones(i) > 0) {
                     return false;
                 }
             }
             return true;
         }
-        if (pitNum >= 7) {
-            for (int i = 6; i <= 11; i++) {
-                if (gameBoard.getNumStones(i+1) > 0) {
+
+        if (pitNum >= 7 && pitNum <= 12) {
+            for (int i = 7; i <= 12; i++) {
+                if (getNumStones(i) > 0) {
                     return false;
                 }
             }
             return true;
         }
-    
-        return false; 
-    }  
+        return false;
+    }
+
+
 
     /**
      * Set the current player.

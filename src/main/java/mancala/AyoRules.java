@@ -40,8 +40,11 @@ public class AyoRules extends GameRules {
     @Override
     public int captureStones(int stoppingPoint){
         int oppositePitIndex = 13 - stoppingPoint; // calculate the index of the opposite pit
-        int stonesCaptured = getDataStructure().removeStones(oppositePitIndex);
-
+        int stonesCaptured = 0;
+        if(getDataStructure().getNumStones(stoppingPoint)==1){
+            stonesCaptured = getDataStructure().removeStones(oppositePitIndex);
+        }
+        
         return stonesCaptured;
     }
 

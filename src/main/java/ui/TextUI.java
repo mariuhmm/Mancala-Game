@@ -118,7 +118,8 @@ public class TextUI {
         GameRules chosenRules = chooseGameType();
 
         // Create MancalaGame with chosen rules
-        MancalaGame mancalaGame = new MancalaGame(chosenRules);
+        MancalaGame mancalaGame = new MancalaGame();
+        mancalaGame.setBoard(chosenRules);
 
         // Create TextUI and start the game
         TextUI textUI = new TextUI(mancalaGame);

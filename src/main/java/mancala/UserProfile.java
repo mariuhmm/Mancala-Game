@@ -18,12 +18,40 @@ public class UserProfile implements Serializable{
         ayoWins = 0;
     }
 
-    public void kalahGamesPlayed(){
+    public void kalahGames(){
         kalahGames++;
     }
 
-    public void ayoGamesPlayed(){
+    public int getKalahGames(){
+        return kalahGames;
+    }
+
+    public void ayoGames(){
         ayoGames++;
+    }
+
+    public int getAyoGames(){
+        return ayoGames;
+    }
+
+    public void ayoWins(){
+        ayoWins++;
+    }
+
+    public int getAyoWins(){
+        return ayoWins;
+    }
+
+    public void kalahWins(){
+        kalahWins++;
+    }
+
+    public int getKalahWins(){
+        return kalahWins;
+    }
+
+    public void setPlayerName(String name){
+        playerName = name;
     }
 
     public String getPlayerName(){

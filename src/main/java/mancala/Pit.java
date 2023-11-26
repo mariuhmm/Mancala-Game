@@ -1,6 +1,7 @@
 package mancala;
+import java.io.Serializable;
 
-public class Pit implements Countable {
+public class Pit implements Countable, Serializable {
     private int numStones;
 
     public Pit(){

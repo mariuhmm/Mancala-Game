@@ -1,5 +1,7 @@
 package mancala;
-public class Store implements Countable {
+import java.io.Serializable;
+
+public class Store implements Countable, Serializable {
 
     private Player owner;
     private int stoneCount;

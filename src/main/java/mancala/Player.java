@@ -6,27 +6,28 @@ public class Player implements Serializable {
     private static final long serialVersionUID = 1L;
     private UserProfile userProfile;
     private String playerName;
-    private Store playerStore;
+    private transient Store playerStore;
 
     public Player(){
         playerStore = new Store();
+        userProfile = new UserProfile();
     }
     
-    public UserProfile getProfile(){
+    public UserProfile getUserProfile(){
         return userProfile;
     }
 
-    public Player(String name){
-        playerName = name;
-        playerStore = new Store();
+    public void setUserProfile(UserProfile profile){
+        userProfile = profile;
     }
 
     public String getName(){
         return playerName;
     }
 
-    private void setName(String name){
+    public void setName(String name){
         playerName = name;
+        userProfile.setPlayerName(name);
     }
 
     public Store getStore(){

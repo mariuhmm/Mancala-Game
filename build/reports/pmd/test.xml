@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<pmd xmlns="http://pmd.sourceforge.net/report/2.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pmd.sourceforge.net/report/2.0.0 http://pmd.sourceforge.net/report_2_0_0.xsd" version="6.55.0" timestamp="2023-11-25T03:05:22.553">
+<pmd xmlns="http://pmd.sourceforge.net/report/2.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pmd.sourceforge.net/report/2.0.0 http://pmd.sourceforge.net/report_2_0_0.xsd" version="6.55.0" timestamp="2023-11-26T07:50:35.235">
 <file name="/course/GP4/src/test/java/mancala/AyoRulesTest.java">
 <violation beginline="9" endline="119" begincolumn="8" endcolumn="1" rule="AtLeastOneConstructor" ruleset="Code Style" package="mancala" class="AyoRulesTest" externalInfoUrl="https://pmd.github.io/pmd-6.55.0/pmd_rules_java_codestyle.html#atleastoneconstructor" priority="3">
 Each class should declare at least one constructor
@@ -96,10 +96,10 @@ JUnit assertions should include a message
 </violation>
 </file>
 <file name="/course/GP4/src/test/java/mancala/KalahRulesTest.java">
-<violation beginline="9" endline="101" begincolumn="8" endcolumn="1" rule="AtLeastOneConstructor" ruleset="Code Style" package="mancala" class="KalahRulesTest" externalInfoUrl="https://pmd.github.io/pmd-6.55.0/pmd_rules_java_codestyle.html#atleastoneconstructor" priority="3">
+<violation beginline="9" endline="102" begincolumn="8" endcolumn="1" rule="AtLeastOneConstructor" ruleset="Code Style" package="mancala" class="KalahRulesTest" externalInfoUrl="https://pmd.github.io/pmd-6.55.0/pmd_rules_java_codestyle.html#atleastoneconstructor" priority="3">
 Each class should declare at least one constructor
 </violation>
-<violation beginline="9" endline="101" begincolumn="8" endcolumn="1" rule="JUnit5TestShouldBePackagePrivate" ruleset="Best Practices" package="mancala" class="KalahRulesTest" externalInfoUrl="https://pmd.github.io/pmd-6.55.0/pmd_rules_java_bestpractices.html#junit5testshouldbepackageprivate" priority="3">
+<violation beginline="9" endline="102" begincolumn="8" endcolumn="1" rule="JUnit5TestShouldBePackagePrivate" ruleset="Best Practices" package="mancala" class="KalahRulesTest" externalInfoUrl="https://pmd.github.io/pmd-6.55.0/pmd_rules_java_bestpractices.html#junit5testshouldbepackageprivate" priority="3">
 JUnit 5 tests should be package-private.
 </violation>
 <violation beginline="11" endline="11" begincolumn="13" endcolumn="27" rule="SingularField" ruleset="Design" package="mancala" class="KalahRulesTest" variable="VariableDeclaratorId" externalInfoUrl="https://pmd.github.io/pmd-6.55.0/pmd_rules_java_design.html#singularfield" priority="3">

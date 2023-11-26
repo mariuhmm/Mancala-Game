@@ -10,12 +10,14 @@ public class MancalaGame implements Serializable {
     private int currentPlayerPos;
     private final ArrayList<Player> playerList;
 
-    public MancalaGame(GameRules board) {
+    public MancalaGame() {
         playerList = new ArrayList<>();
-        playerOne = new Player("Player One");
-        playerTwo = new Player("Player Two");
-        this.board = board;
-        setBoard(board);
+        playerOne = new Player();
+        playerOne.setName("Player One");
+        playerTwo = new Player();
+        playerTwo.setName("Player Two");
+        board = new KalahRules();
+        setBoard(board);    // default of kalahrules
         setPlayers(playerOne, playerTwo);
         startNewGame();
     }
@@ -24,7 +26,6 @@ public class MancalaGame implements Serializable {
         playerList.clear();
         playerList.add(onePlayer);
         playerList.add(twoPlayer);
-
         board.registerPlayers(onePlayer, twoPlayer);
     }
 
@@ -44,7 +45,7 @@ public class MancalaGame implements Serializable {
         return board;
     }
 
-    private void setBoard(GameRules theBoard) {
+    public void setBoard(GameRules theBoard) {
         board = theBoard;
     }
 
@@ -99,24 +100,18 @@ public class MancalaGame implements Serializable {
     
 
     public Player getWinner() throws GameNotOverException {
-        Player winningPlayer = null;
-        try {
-            // Get the winner of the game (if it's over)
-            if (!isGameOver()) {
+        Player winningPlayer = playerList.get(1);
+        if (!isGameOver()) {
                 throw new GameNotOverException();
-            }
-
-            int storeOneStones = getStoreCount(playerList.get(0));
-            int storeTwoStones = getStoreCount(playerList.get(1));
+        }
+            int storeOneStones = board.getStoreCount(1);
+            int storeTwoStones = board.getStoreCount(2);
             
             if (storeOneStones > storeTwoStones) {
                 winningPlayer = playerList.get(0);
             } else if (storeTwoStones > storeOneStones) {
                 winningPlayer = playerList.get(1);
-            } 
-        } catch (NoSuchPlayerException e) {
-            System.out.println(e.getMessage());
-        }
+            }
         return winningPlayer;
     }
 

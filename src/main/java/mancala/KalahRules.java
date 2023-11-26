@@ -62,9 +62,13 @@ public class KalahRules extends GameRules {
     @Override
     public int captureStones(int stoppingPoint){
         int oppositePitIndex = 13 - stoppingPoint; // calculate the index of the opposite pit
-        int numStones = getDataStructure().removeStones(stoppingPoint);
-        int stonesCaptured = getDataStructure().removeStones(oppositePitIndex);
-
+        int numStones = 0;
+        int stonesCaptured = 0;
+        if(getDataStructure().getNumStones(stoppingPoint)==1){
+            numStones = getDataStructure().removeStones(stoppingPoint);
+            stonesCaptured = getDataStructure().removeStones(oppositePitIndex);
+        }
+        
         return stonesCaptured+numStones;
     }
 

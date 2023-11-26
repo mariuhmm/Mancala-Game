@@ -17,9 +17,9 @@ compileJava {
 
 jar {
     manifest {
-        attributes 'Main-Class': 'ui.GameGUI'
+        attributes 'Main-Class': 'ui.MancalaGUI'
     }
-    archiveBaseName = 'GameGUI'
+    archiveBaseName = 'MancalaGUI'
 }
 
 //change the class name on line 25 to match
@@ -27,7 +27,7 @@ task echo;
 
 echo.doFirst {
     println "To run the program from jar:\njava -jar build/libs/MancalaGame.jar"
-    println "To run the program from class files:\njava -cp build/classes/java/main ui.GameGUI"
+    println "To run the program from class files:\njava -cp build/classes/java/main ui.MancalaGUI"
 }
 
 dependencies {
