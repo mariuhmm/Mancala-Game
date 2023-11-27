@@ -5,55 +5,139 @@ import java.io.Serializable;
 public class UserProfile implements Serializable{
     private static final long serialVersionUID = 1L;
     private String playerName;
-    private int kalahGames;
-    private int ayoGames;
-    private int kalahWins;
-    private int ayoWins;
+    private int kalahPlayed;
+    private int ayoPlayed;
+    private int kalahWon;
+    private int ayoWon;
+    private int ayoLost;
+    private int kalahLost;
 
     public UserProfile(){
-        playerName = "hi";
-        kalahGames = 0;
-        ayoGames = 0;
-        kalahWins = 0;
-        ayoWins = 0;
+        playerName = "null";
+        kalahPlayed = 0;
+        ayoPlayed = 0;
+        kalahWon = 0;
+        ayoWon = 0;
+        kalahLost = 0;
+        ayoLost = 0;
     }
+
+    /**
+     * Increment's the number of Kalah games played.
+     * 
+     */
 
     public void kalahGames(){
-        kalahGames++;
+        kalahPlayed++;
     }
-
+     /**
+     * Gets the number of Kalah games played
+     * 
+     * @return The number of Kalah games played
+     */
     public int getKalahGames(){
-        return kalahGames;
+        return kalahPlayed;
     }
 
+     /**
+     * Increment's the number of Ayo games played.
+     * 
+     */
     public void ayoGames(){
-        ayoGames++;
+        ayoPlayed++;
     }
 
+     /**
+     * Gets the number of Ayo games played
+     * 
+     * @return The number of Ayo games played
+     */
     public int getAyoGames(){
-        return ayoGames;
+        return ayoPlayed;
     }
-
+     /**
+     * Increment's the number of Ayo wins.
+     * 
+     */
     public void ayoWins(){
-        ayoWins++;
+        ayoWon++;
     }
 
+     /**
+     * Gets the number of Ayo games won.
+     * 
+     * @return The number of Ayo games won.
+     */
     public int getAyoWins(){
-        return ayoWins;
+        return ayoWon;
     }
 
+     /**
+     * Increment's the number of Kalah wins.
+     * 
+     */
     public void kalahWins(){
-        kalahWins++;
+        kalahWon++;
     }
 
+     /**
+     * Gets the number of Kalah games won
+     * 
+     * @return The number of Kalah games won
+     */
     public int getKalahWins(){
-        return kalahWins;
+        return kalahWon;
     }
 
-    public void setPlayerName(String name){
+    /**
+     * Increments the number of Kalah games lost.
+     * 
+     */
+     
+    public void kalahLoss(){
+        kalahLost++;
+    }
+
+    /**
+     * Increments the number of Ayo games lost.
+     * 
+     */
+    public void ayoLoss(){
+        ayoLost++;
+    }
+
+    /**
+     * Gets the number of Kalah games lost
+     * 
+     * @return The number of Kalah games lost
+     */
+    public int getKalahLosses(){
+        return kalahLost;
+    }
+
+    /**
+     * Gets the number of Ayo games lost
+     * 
+     * @return The number of Ayo games lost
+     */
+    public int getAyoLosses(){
+        return ayoLost;
+    }
+
+    /**
+     * Sets the name of the profile
+     *
+     * @param name The name of the profile.
+     */
+    public void setPlayerName(final String name){
         playerName = name;
     }
 
+    /**
+     * Gets the name of the profile.
+     *
+     * @return The name of the profile.
+     */
     public String getPlayerName(){
         return playerName;
     }

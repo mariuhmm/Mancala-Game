@@ -5,14 +5,14 @@ import java.io.File;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+//import java.awt.event.ActionEvent;
+//mport java.awt.event.ActionListener;
 
 public class MancalaGUI extends JFrame {
 
-    private GameRules rules;
+    //private GameRules rules;
     private MancalaGame mancalaGame;
-    private Saver saver;
+    private final Saver saver;
     private JButton[] pits;
     private JPanel player1Panel;
     private JPanel player2Panel;
@@ -24,7 +24,7 @@ public class MancalaGUI extends JFrame {
     public static final int WIDTH = 900;
     public static final int HEIGHT = 500;
 
-    public MancalaGUI(MancalaGame game) {
+    public MancalaGUI(final MancalaGame game) {
         super();
         saver = new Saver();
         mancalaGame = game;
@@ -33,7 +33,7 @@ public class MancalaGUI extends JFrame {
     }
 
     private static GameRules chooseGame() {
-        int choice = JOptionPane.showOptionDialog(
+        final int choice = JOptionPane.showOptionDialog(
                 null,
                 "Choose an option:",
                 "Mancala Game",
@@ -42,17 +42,15 @@ public class MancalaGUI extends JFrame {
                 null,
                 new Object[]{
                         "New Kalah Game",
-                        "New Ayo Game",
-                        "Exit"
+                        "New Ayo Game"
                 },
                 "New Kalah Game");
+
         switch (choice) {
             case 0:
                 return new KalahRules();
             case 1:
                 return new AyoRules();
-            case 2:
-                System.exit(0);
             default:
                 return new KalahRules();
         }
@@ -60,7 +58,7 @@ public class MancalaGUI extends JFrame {
 
     private void saveUserProfile(int player){
         saver.saveObject(mancalaGame.getPlayers().get(player).getUserProfile(), mancalaGame.getPlayers().get(player).getUserProfile().getPlayerName() + ".ser");
-        JOptionPane.showMessageDialog(this, "Player " + player+" Saved successfully!");
+        JOptionPane.showMessageDialog(this, "Player " + (player+1)+" Saved successfully!");
     }
 
     private void loadUserProfile(int player) {
@@ -88,6 +86,7 @@ public class MancalaGUI extends JFrame {
 
     private void saveGameOption() {
         saver.saveObject(mancalaGame, "savedGame"+saveCounter+".ser");
+        saveCounter++;
         JOptionPane.showMessageDialog(this, "Game saved successfully!");
     }
 
@@ -118,7 +117,7 @@ public class MancalaGUI extends JFrame {
     private void exitGameOption() {
         int choice = JOptionPane.showOptionDialog(
                 this,
-                "Do you want to save the game before exiting?",
+                "Do you want to save the players and game before exiting?",
                 "Exit Game",
                 JOptionPane.YES_NO_OPTION,
                 JOptionPane.QUESTION_MESSAGE,
@@ -129,6 +128,8 @@ public class MancalaGUI extends JFrame {
         switch (choice) {
             case 0:
                 saveGameOption();
+                saveUserProfile(0);
+                saveUserProfile(1);
                 dispose();
                 startNewGame();
                 break;
@@ -206,15 +207,20 @@ public class MancalaGUI extends JFrame {
         JLabel playerLabel = new JLabel(mancalaGame.getPlayers().get(0).getUserProfile().getPlayerName());
         JLabel kalahGamesLabel = new JLabel("Kalah Games: " + mancalaGame.getPlayers().get(0).getUserProfile().getKalahGames());
         JLabel kalahWinsLabel = new JLabel("Kalah Wins: " + mancalaGame.getPlayers().get(0).getUserProfile().getKalahWins());
+        JLabel kalahLossesLabel = new JLabel("Kalah Losses: " + mancalaGame.getPlayers().get(0).getUserProfile().getKalahLosses());
         JLabel ayoGamesLabel = new JLabel("Ayo Games: " + mancalaGame.getPlayers().get(0).getUserProfile().getAyoGames());
         JLabel ayoWinsLabel = new JLabel("Ayo Wins: " + mancalaGame.getPlayers().get(0).getUserProfile().getAyoWins());
+        JLabel ayoLossesLabel = new JLabel("Ayo Losses: " + mancalaGame.getPlayers().get(0).getUserProfile().getAyoLosses());
 
-        player1Panel.add(currentPlayerLabel);
+        
         player1Panel.add(playerLabel);
         player1Panel.add(kalahGamesLabel);
         player1Panel.add(kalahWinsLabel);
+        player1Panel.add(kalahLossesLabel);
         player1Panel.add(ayoGamesLabel);
         player1Panel.add(ayoWinsLabel);
+        player1Panel.add(ayoLossesLabel);
+        player1Panel.add(currentPlayerLabel);
         
 
         mainPanel.add(player1Panel, BorderLayout.SOUTH);
@@ -227,14 +233,18 @@ public class MancalaGUI extends JFrame {
         JLabel playerLabel = new JLabel(mancalaGame.getPlayers().get(1).getUserProfile().getPlayerName());
         JLabel kalahGamesLabel = new JLabel("Kalah Games: " + mancalaGame.getPlayers().get(1).getUserProfile().getKalahGames());
         JLabel kalahWinsLabel = new JLabel("Kalah Wins: " + mancalaGame.getPlayers().get(1).getUserProfile().getKalahWins());
+        JLabel kalahLossesLabel = new JLabel("Kalah Losses: " + mancalaGame.getPlayers().get(1).getUserProfile().getKalahLosses());
         JLabel ayoGamesLabel = new JLabel("Ayo Games: " + mancalaGame.getPlayers().get(1).getUserProfile().getAyoGames());
         JLabel ayoWinsLabel = new JLabel("Ayo Wins: " + mancalaGame.getPlayers().get(1).getUserProfile().getAyoWins());
+        JLabel ayoLossesLabel = new JLabel("Ayo Losses: " + mancalaGame.getPlayers().get(1).getUserProfile().getAyoLosses());
 
         player2Panel.add(playerLabel);
         player2Panel.add(kalahGamesLabel);
         player2Panel.add(kalahWinsLabel);
+        player2Panel.add(kalahLossesLabel);
         player2Panel.add(ayoGamesLabel);
         player2Panel.add(ayoWinsLabel);
+        player2Panel.add(ayoLossesLabel);
 
         mainPanel.add(player2Panel, BorderLayout.NORTH);
     }
@@ -242,19 +252,25 @@ public class MancalaGUI extends JFrame {
     private void updatePlayer1Info() {
         Player player = mancalaGame.getPlayers().get(0);
         UserProfile userProfile = player.getUserProfile();
-
+        
+        JLabel playerLabel = new JLabel(mancalaGame.getPlayers().get(0).getUserProfile().getPlayerName());
         JLabel kalahGamesLabel = new JLabel("Kalah Games: " + userProfile.getKalahGames());
         JLabel kalahWinsLabel = new JLabel("Kalah Wins: " + userProfile.getKalahWins());
+        JLabel kalahLossesLabel = new JLabel("Kalah Losses: " + userProfile.getKalahLosses());
         JLabel ayoGamesLabel = new JLabel("Ayo Games: " + userProfile.getAyoGames());
         JLabel ayoWinsLabel = new JLabel("Ayo Wins: " + userProfile.getAyoWins());
+        JLabel ayoLossesLabel = new JLabel("Ayo Losses: " + userProfile.getAyoLosses());
         JLabel currentPlayerLabel = new JLabel("Current Player: " + mancalaGame.getCurrentPlayer().getName());
         
         player1Panel.removeAll();
-        player1Panel.add(currentPlayerLabel);
+        player1Panel.add(playerLabel);
         player1Panel.add(kalahGamesLabel);
         player1Panel.add(kalahWinsLabel);
+        player1Panel.add(kalahLossesLabel);
         player1Panel.add(ayoGamesLabel);
         player1Panel.add(ayoWinsLabel);
+        player1Panel.add(ayoLossesLabel);
+        player1Panel.add(currentPlayerLabel);
 
         player1Panel.revalidate();
         player1Panel.repaint();
@@ -263,17 +279,21 @@ public class MancalaGUI extends JFrame {
     private void updatePlayer2Info() {
         Player player = mancalaGame.getPlayers().get(1);
         UserProfile userProfile = player.getUserProfile();
-
+        
         JLabel kalahGamesLabel = new JLabel("Kalah Games: " + userProfile.getKalahGames());
         JLabel kalahWinsLabel = new JLabel("Kalah Wins: " + userProfile.getKalahWins());
+        JLabel kalahLossesLabel = new JLabel("Kalah Losses: " + userProfile.getKalahLosses());
         JLabel ayoGamesLabel = new JLabel("Ayo Games: " + userProfile.getAyoGames());
         JLabel ayoWinsLabel = new JLabel("Ayo Wins: " + userProfile.getAyoWins());
+        JLabel ayoLossesLabel = new JLabel("Ayo Losses: " + userProfile.getAyoLosses());
 
         player2Panel.removeAll();
         player2Panel.add(new JLabel(player.getUserProfile().getPlayerName()));
         player2Panel.add(kalahGamesLabel);
         player2Panel.add(kalahWinsLabel);
+        player2Panel.add(kalahLossesLabel);
         player2Panel.add(ayoGamesLabel);
+        player2Panel.add(ayoLossesLabel);
         player2Panel.add(ayoWinsLabel);
 
         player2Panel.revalidate();
@@ -304,6 +324,7 @@ public class MancalaGUI extends JFrame {
         JPanel boardPanel = new JPanel(new GridLayout(2, 6));
         pits = new JButton[13];
 
+        // Initialize buttons for the pits in the grid
         initializePitButtons(boardPanel);
 
         mainPanel.add(boardPanel, BorderLayout.CENTER);
@@ -327,11 +348,12 @@ public class MancalaGUI extends JFrame {
     }
 
     private void moveAction(int pitNum) {
-        updatePlayer1Info();
         try {
+            updatePlayer1Info();
             int stonesRemaining = mancalaGame.move(pitNum);
             updateUI();
 
+            // Check if the game is over
             if (mancalaGame.isGameOver()) {
                 if(mancalaGame.getBoard() instanceof KalahRules){
                     mancalaGame.getPlayers().get(0).getUserProfile().kalahGames();
@@ -342,10 +364,12 @@ public class MancalaGUI extends JFrame {
                 }
                 displayWinner();
             } else {
+                // Check for extra turn and switch player accordingly
                 if (mancalaGame.getBoard() instanceof KalahRules && ((KalahRules) mancalaGame.getBoard()).extraTurn()) {
                     JOptionPane.showMessageDialog(MancalaGUI.this, "Extra turn for " + mancalaGame.getCurrentPlayer().getName());
                 } else {
                     switchPlayer();
+                    updatePlayer1Info();
                 }
             }
         } catch (InvalidMoveException ex) {
@@ -359,8 +383,18 @@ public class MancalaGUI extends JFrame {
             Player winner = mancalaGame.getWinner();
             if(mancalaGame.getBoard() instanceof KalahRules){
                 winner.getUserProfile().kalahWins();
+                if(winner==mancalaGame.getPlayers().get(0)){
+                    mancalaGame.getPlayers().get(1).getUserProfile().kalahLoss();
+                }else{
+                    mancalaGame.getPlayers().get(0).getUserProfile().kalahLoss();
+                }
             }else{
                 winner.getUserProfile().ayoWins();
+                if(winner==mancalaGame.getPlayers().get(0)){
+                    mancalaGame.getPlayers().get(1).getUserProfile().ayoLoss();
+                }else{
+                    mancalaGame.getPlayers().get(0).getUserProfile().ayoLoss();
+                }
             }
             if (winner != null) {
                 JOptionPane.showMessageDialog(MancalaGUI.this, "Game over! " + winner.getName() + " wins!");
@@ -381,6 +415,7 @@ public class MancalaGUI extends JFrame {
     }
 
     private void updateUI() {
+        // Update pit labels based on the game state
         for (int i = 12; i >= 7; i--) {
             pits[i].setText("Pit " + i + ": " + mancalaGame.getBoard().getNumStones(i));
         }

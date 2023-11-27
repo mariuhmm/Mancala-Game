@@ -45,6 +45,9 @@ All methods are completed, there should be no limitations.
 * Contact: mahmed44@uoguelph.ca
 
 ## Development History
+* 2.1 (11/26/23)
+    * Fixed bugs in the GUI
+    * Added JavaDocs comments
 * 2.0 (11/25/23)
     * Completed the GUI
     * Completed saving/loading mechanisms for user and game

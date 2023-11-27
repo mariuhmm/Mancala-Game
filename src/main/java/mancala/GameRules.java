@@ -6,8 +6,10 @@ import java.io.Serializable;
  * KalahRules and AyoRules will subclass this class.
  */
 public abstract class GameRules implements Serializable {
+    private static final long serialVersionUID = 1L;
     private MancalaDataStructure gameBoard;
     private int currentPlayer = 1; // Player number (1 or 2)
+    private boolean isEmpty;
 
     /**
      * Constructor to initialize the game board.
@@ -40,7 +42,7 @@ public abstract class GameRules implements Serializable {
      *
      * @return The MancalaDataStructure.
      */
-    MancalaDataStructure getDataStructure() {
+   /* default */ MancalaDataStructure getDataStructure() {
         return gameBoard;
     }
 
@@ -51,26 +53,25 @@ public abstract class GameRules implements Serializable {
      * @return True if the side is empty, false otherwise.
      */
     public boolean isSideEmpty(int pitNum) {
+        isEmpty=true;
         if (pitNum >= 1 && pitNum <= 6) {
             for (int i = 1; i <= 6; i++) {
                 if (getNumStones(i) > 0) {
-                    return false;
+                    isEmpty = false;
+                    break;
                 }
             }
-            return true;
-        }
-
-        if (pitNum >= 7 && pitNum <= 12) {
+        } else if (pitNum >= 7 && pitNum <= 12) {
             for (int i = 7; i <= 12; i++) {
                 if (getNumStones(i) > 0) {
-                    return false;
+                    isEmpty = false;
+                    break;
                 }
             }
-            return true;
         }
-        return false;
-    }
 
+        return isEmpty;
+    }
 
 
     /**
@@ -98,14 +99,14 @@ public abstract class GameRules implements Serializable {
      * @param startPit The starting pit for distribution.
      * @return The number of stones distributed.
      */
-    abstract int distributeStones(int startPit);
+    /* default */ abstract int distributeStones(int startPit);
     /**
      * Capture stones from the opponent's pit and return the number captured.
      *
      * @param stoppingPoint The stopping point for capturing stones.
      * @return The number of stones captured.
      */
-    abstract int captureStones(int stoppingPoint);
+    /* default */ abstract int captureStones(int stoppingPoint);
 
     /**
      * Register two players and set their stores on the board.
@@ -115,8 +116,8 @@ public abstract class GameRules implements Serializable {
      */
     public void registerPlayers(Player one, Player two) {
         // this method can be implemented in the abstract class.
-        Store storeOne = new Store();
-        Store storeTwo = new Store();
+        final Store storeOne = new Store();
+        final Store storeTwo = new Store();
         /* make a new store in this method, set the owner
          then use the setStore(store,playerNum) method of the data structure*/
 
@@ -131,11 +132,13 @@ public abstract class GameRules implements Serializable {
         gameBoard.setUpPits();
         gameBoard.emptyStores();
     }
-
+    /**
+     * Print the board as a string
+     */
     @Override
     public String toString() {
         // Implement toString() method logic here.
-        StringBuilder boardString = new StringBuilder();
+        final StringBuilder boardString = new StringBuilder();
         boardString.append("\t");
         for (int i = 12; i >= 7; i--) {
             boardString.append(gameBoard.getNumStones(i)).append("\t");
