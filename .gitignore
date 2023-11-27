@@ -42,7 +42,11 @@ Thumbs.db
 
 
 ### Gradle ###
+<<<<<<< HEAD
 .gradle
+=======
+.gradle/
+>>>>>>> 9427005a44fdd80ea2f8822acaf6ae64f83970e3
 build/
 bin/
 .vscode/
