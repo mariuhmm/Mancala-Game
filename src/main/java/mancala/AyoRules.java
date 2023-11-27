@@ -17,7 +17,7 @@ public class AyoRules extends GameRules {
      * @return The number of stones captured.
      */
     @Override
-    public int distributeStones(int startPit){
+    public int distributeStones(final int startPit){
         final int numStones = getDataStructure().getNumStones(startPit);
         int numMoves = getDataStructure().removeStones(startPit);
     //    int lastPit = startPit + numMoves;
@@ -58,7 +58,7 @@ public class AyoRules extends GameRules {
      * @return The number of stones captured.
      */
     @Override
-    public int captureStones(int stoppingPoint){
+    public int captureStones(final int stoppingPoint){
         oppositePitIndex = 13 - stoppingPoint; // calculate the index of the opposite pit
        // stonesCaptured = 0;
         if(getDataStructure().getNumStones(stoppingPoint)==targetValue){
@@ -77,7 +77,7 @@ public class AyoRules extends GameRules {
      * @throws InvalidMoveException If the move is invalid.
      */
     @Override
-    public int moveStones(int startPit, int playerNum) throws InvalidMoveException {
+    public int moveStones(final int startPit, final int playerNum) throws InvalidMoveException {
         if (startPit < 1 || startPit > 12) {
             throw new InvalidMoveException();
         }

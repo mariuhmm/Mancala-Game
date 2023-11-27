@@ -24,7 +24,7 @@ public abstract class GameRules implements Serializable {
      * @param pitNum The number of the pit.
      * @return The number of stones in the pit.
      */
-    public int getNumStones(int pitNum) {
+    public int getNumStones(final int pitNum) {
         return gameBoard.getNumStones(pitNum);
     }
     /**
@@ -33,7 +33,7 @@ public abstract class GameRules implements Serializable {
      * @param storeNum The number of the store.
      * @return The number of stones in the store.
      */
-    public int getStoreCount(int storeNum){
+    public int getStoreCount(final int storeNum){
         return gameBoard.getStoreCount(storeNum);
     }
 
@@ -52,7 +52,7 @@ public abstract class GameRules implements Serializable {
      * @param pitNum The number of a pit in the side.
      * @return True if the side is empty, false otherwise.
      */
-    public boolean isSideEmpty(int pitNum) {
+    public boolean isSideEmpty(final int pitNum) {
         isEmpty=true;
         if (pitNum >= 1 && pitNum <= 6) {
             for (int i = 1; i <= 6; i++) {
@@ -79,7 +79,7 @@ public abstract class GameRules implements Serializable {
      *
      * @param playerNum The player number (1 or 2).
      */
-    public void setPlayer(int playerNum) {
+    public void setPlayer(final int playerNum) {
         currentPlayer = playerNum;
     }
 
@@ -114,7 +114,7 @@ public abstract class GameRules implements Serializable {
      * @param one The first player.
      * @param two The second player.
      */
-    public void registerPlayers(Player one, Player two) {
+    public void registerPlayers(final Player one, final Player two) {
         // this method can be implemented in the abstract class.
         final Store storeOne = new Store();
         final Store storeTwo = new Store();

@@ -20,7 +20,7 @@ public class Saver {
      * @param Serializable The serializable object.
      * @param String The file name.
      */
-    public void saveObject(Serializable toSave, String filename) {
+    public void saveObject(final Serializable toSave, final String filename) {
         final Path currentDir = Paths.get(System.getProperty("user.dir"));
         final Path assetsFolderPath = currentDir.resolve(folderName);
 
@@ -48,7 +48,7 @@ public class Saver {
      * @param String The file name.
      * @return The serializable object.
      */
-    public Serializable loadObject(String filename) {
+    public Serializable loadObject(final String filename) {
         final Path currentDir = Paths.get(System.getProperty("user.dir"));
         final Path assetsFolderPath = currentDir.resolve(folderName);
         final Path filePath = assetsFolderPath.resolve(filename);

@@ -34,7 +34,7 @@ public class MancalaGame implements Serializable {
      * @param onePlayer Player one.
      * @param twoPlayer Player two.
      */
-    public void setPlayers(Player onePlayer, Player twoPlayer) {
+    public void setPlayers(final Player onePlayer, final Player twoPlayer) {
         playerList.clear();
         playerList.add(onePlayer);
         playerList.add(twoPlayer);
@@ -64,7 +64,7 @@ public class MancalaGame implements Serializable {
      *
      * @param Player The player.
      */
-    public void setCurrentPlayer(Player player) {
+    public void setCurrentPlayer(final Player player) {
         currentPlayerPos = playerList.indexOf(player);
     }
     
@@ -83,7 +83,7 @@ public class MancalaGame implements Serializable {
      * @param Gamerules The ruleset of the game.
      */
 
-    public void setBoard(GameRules theBoard) {
+    public void setBoard(final GameRules theBoard) {
         board = theBoard;
     }
     /**
@@ -94,7 +94,7 @@ public class MancalaGame implements Serializable {
      * @throws PitNotFoundException If the pit is out of range.
      */
 
-    public int getNumStones(int pitNum) throws PitNotFoundException {
+    public int getNumStones(final int pitNum) throws PitNotFoundException {
         if(pitNum>12||pitNum<1){
             throw new PitNotFoundException();
         }
@@ -117,7 +117,7 @@ public class MancalaGame implements Serializable {
      * @throws InvalidMoveException If the pit entered is out of range for the player.
      */
 
-    public int move(int startPit) throws InvalidMoveException {
+    public int move(final int startPit) throws InvalidMoveException {
         final Player currentPlayer = getCurrentPlayer();
         
         checkStartPit(currentPlayer, startPit);
@@ -152,7 +152,7 @@ public class MancalaGame implements Serializable {
      * @return The player's store count.
      */
 
-    public int getStoreCount(Player player) throws NoSuchPlayerException{
+    public int getStoreCount(final Player player) throws NoSuchPlayerException{
         if (playerList.contains(player)) {
             return player.getStoreCount();
         } else {
