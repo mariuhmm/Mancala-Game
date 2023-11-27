@@ -4,7 +4,7 @@
 
 ## Description
 
-This project is a 2-player Mancala game made in Java. The project incorporates both Kalah and AyoAyo rules such as capturing stones, adding stones to stores and getting extra turns. There are also Junit tests to test the board class of the game.
+This project is a 2-player Mancala game made in Java. The project incorporates a GUI and both Kalah and AyoAyo rules such as capturing stones, adding stones to stores and getting extra turns. 
 
 ## Getting Started
 
