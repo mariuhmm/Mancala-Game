@@ -56,7 +56,7 @@ All methods are completed, there should be no limitations.
     * Began creating GUI
 * 1.1 (11/23/23)
     * Fixed bugs in KalahRules
-* 1.0 (11/22/23)
+* 1.0 (11/20/23)
     * Implemented countable
     * Began implementing serialization
     * Created Kalah and Ayo rules classes
